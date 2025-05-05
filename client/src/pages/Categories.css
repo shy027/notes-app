@@ -1,0 +1,157 @@
+
+
+/* 搜索部分样式 */
+.search-container {
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.search-type-button {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 42px;
+}
+
+.type-option {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.type-option.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.divider {
+  width: 1px;
+  height: 20px;
+  background: #e2e8f0;
+}
+
+.search-input-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+}
+
+.search-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #91b8f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.search-button:hover {
+  background: #2563eb;
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* 分类区域样式 */
+.categories-section {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: inset 2px 4px 8px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.categories-section::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.8));
+  border-radius: 15px;
+  z-index: 0;
+}
+
+.categories-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 卡片样式 */
+.ant-list-grid {
+  display: block;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0;
+}
+
+.ant-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.ant-card:hover {
+  transform: translateY(-4px);
+}
+
+.ant-card-body {
+  padding: 16px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ant-card-meta-title {
+  color: #1f2937;
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.ant-card a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  text-align: center;
+  margin-top: auto;
+}
+
+.ant-card a:hover {
+  color: #2563eb;
+}
+
+.categories-pagination-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+}
+
+.categories-pagination-btn:hover:not(:disabled) {
+  background-color: #f9fafb;
+}
+
+.categories-pagination-btn:disabled {
+  background-color: #f3f4f6;
+  cursor: not-allowed;
+}

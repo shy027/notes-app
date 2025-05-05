@@ -1,0 +1,121 @@
+.search-results {
+  padding: 20px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.notes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.note-card {
+  width: calc(33.33% - 20px);
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  cursor: pointer;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.note-card:nth-child(even) {
+  transform: translateY(20px);
+}
+
+.note-card:hover {
+  transform: translateY(-5px);
+}
+
+.note-card:nth-child(even):hover {
+  transform: translateY(15px);
+}
+
+.note-content {
+  padding: 20px;
+}
+
+.note-title {
+  font-size: 1.2em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.note-excerpt {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.note-meta {
+  font-size: 0.8em;
+  color: #888;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.pagination-button {
+  background-color: #ffffff;
+  border: 2px solid #a8e6ff;
+  color: #666;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pagination-button:not(:disabled):hover {
+  background-color: #a8e6ff;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: #ccc;
+}
+
+.pagination-container {
+  margin-top: 30px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.search-keyword{
+  color: rgb(0, 48, 204);
+}
+
+
+.note-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+  max-height: 64px;  /* 限制两行高度 */
+  overflow: hidden;
+}
+
+.note-tag {
+  background: #e6f7ff;
+  color: #1890ff;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.85em;
+  transition: all 0.2s;
+}
+
+.note-tag:hover {
+  background: #1890ff;
+  color: white;
+}

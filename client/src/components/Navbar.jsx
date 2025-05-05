@@ -7,6 +7,7 @@ import {
     HomeOutlined,
     AppstoreOutlined,
     FileOutlined,
+    BulbOutlined,
 } from '@ant-design/icons';
 import { useStore } from '@/store/userStore';
 
@@ -40,6 +41,10 @@ const Navbar = () => {
                 return ['categories'];
             case '/notes':
                 return ['notes'];
+            case '/seek':
+                return ['seek'];
+            case '/personal':
+                return ['personal'];
             default:
                 return [];
         }
@@ -75,10 +80,20 @@ const Navbar = () => {
                             label: (
                                 <Space size="middle">
                                     <AppstoreOutlined />
-                                    <span>分类</span>
+                                    <span>搜索</span>
                                 </Space>
                             ),
                             onClick: () => navigate('/categories'),
+                        },
+                        {
+                            key: 'seek',
+                            label: (
+                                <Space size="middle">
+                                <BulbOutlined />
+                                    <span>发现</span>
+                                </Space>
+                            ),
+                            onClick: () => navigate('/seek'),
                         },
                         {
                             key: 'notes',
@@ -88,8 +103,19 @@ const Navbar = () => {
                                     <span>笔记</span>
                                 </Space>
                             ),
-                            onClick: () => navigate('/notes'),
+                            onClick: () => navigate('/notes',{state: user}),
                         },
+                        {
+                            key: 'personal',
+                            label: (
+                                <Space size="middle">
+                                    <UserOutlined />
+                                    <span>空间</span>
+                                </Space>
+                            ),
+                            onClick: () => navigate('/personal',{state: user}),
+                        },
+                        
                     ]}
                 />
                 <div>
