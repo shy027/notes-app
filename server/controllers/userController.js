@@ -2,7 +2,7 @@
  * @Author: shy 1533103845@qq.com
  * @Date: 2025-03-24 16:07:16
  * @LastEditors: shy 1533103845@qq.com
- * @LastEditTime: 2025-05-05 20:30:17
+ * @LastEditTime: 2025-05-06 20:52:06
  * @FilePath: \notes-app\server\controllers\userController.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -47,6 +47,24 @@ export const getUser = async (req, res) => {
     const [rows] = await pool.query("SELECT * FROM users WHERE id = ?", [id]);
     if (rows.length > 0) {
       res.status(200).json(rows[0]);
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+//搜索用户
+export const searchUser = async (req, res) => {
+  try {
+    const { name } = req.params;
+    const [rows] = await pool.query(
+      "SELECT * FROM users WHERE username LIKE ? OR nickname LIKE ?;",
+      [`%${name}%`, `%${name}%`]
+    );
+    if (rows.length > 0) {
+      res.status(200).json(rows);
     } else {
       res.status(404).json({ error: "User not found" });
     }

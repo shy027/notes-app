@@ -5,7 +5,6 @@ import { getUser } from '@/api/userApi';  // 添加用户API导入
 import dayjs from 'dayjs';  // 用于格式化日期
 import Navbar from '@/components/Navbar';
 import './SearchNotes.css';
-import Pagination from '@/components/Pagination';
 
 const SearchNotes = () => {
   const { name } = useParams();
@@ -57,8 +56,8 @@ const SearchNotes = () => {
       <div style={{ backgroundColor: '#d9f6ff', minHeight: '100vh' }}>
         <div className="search-results">
           <div className="search-header">
-            <h2>搜索结果：<span className="search-keyword">{name}</span></h2>
-            <p>找到 {notes.length} 条相关笔记</p>
+            <span>搜索"<span className="search-keyword">{name}</span>"的结果：</span>
+            <span>找到 {notes.length} 条相关笔记</span>
           </div>
 
           {loading ? (
@@ -110,6 +109,9 @@ const SearchNotes = () => {
                 >
                   上一页
                 </button>
+                <span className="page-info m-2">
+                  第 {currentPage} 页，共 {Math.ceil(notes.length / limit)} 页
+                </span>
                 <button
                   className="pagination-button"
                   style={{

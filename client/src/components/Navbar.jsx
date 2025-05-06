@@ -52,18 +52,28 @@ const Navbar = () => {
 
     return (
         <>
+         <style jsx global>{`
+                .ant-menu-item-selected {
+                    background: linear-gradient(50deg, rgb(11, 157, 255), transparent) !important;
+                    transform: skew(-10deg);
+                }
+            `}</style>
             <Header
                 style={{
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
+                    background: 'linear-gradient(to right, #001529, #1890ff)',
                 }}
             >
                 <Menu
                     theme="dark"
                     mode="horizontal"
                     selectedKeys={selectedKeys}
-                    className="w-200"
+                    className="custom-menu"
+                    style={{
+                        background: 'transparent',
+                    }}
                     items={[
                         {
                             key: 'home',

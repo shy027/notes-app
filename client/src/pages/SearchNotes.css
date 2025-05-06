@@ -92,9 +92,6 @@
   gap: 20px;
 }
 
-.search-keyword{
-  color: rgb(0, 48, 204);
-}
 
 
 .note-tags {
@@ -118,4 +115,15 @@
 .note-tag:hover {
   background: #1890ff;
   color: white;
+}
+.search-header{
+  margin-bottom: 20px;
+  padding: 15px 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.search-keyword{
+  color: #1890ff;
+  font-weight: 500;
 }

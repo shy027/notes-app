@@ -31,3 +31,7 @@
     text-decoration: none;
     font-size: 1rem;
 }
+.ant-menu-item-selected {
+    background: linear-gradient(45deg, rgb(11, 157, 255), transparent) !important;
+    transform: skew(-10deg);
+}
