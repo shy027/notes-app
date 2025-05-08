@@ -2,7 +2,7 @@
  * @Author: shy 1533103845@qq.com
  * @Date: 2025-03-24 16:07:16
  * @LastEditors: shy 1533103845@qq.com
- * @LastEditTime: 2025-05-06 20:52:06
+ * @LastEditTime: 2025-05-08 21:03:18
  * @FilePath: \notes-app\server\controllers\userController.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -68,6 +68,60 @@ export const searchUser = async (req, res) => {
     } else {
       res.status(404).json({ error: "User not found" });
     }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+//关注
+export const Watching = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const watching = req.body; // watching 直接就是数组
+
+    console.log("Received watching data:", watching); // 调试用
+
+    const [rows] = await pool.query(
+      "UPDATE users SET watching = ? WHERE id = ?",
+      [JSON.stringify(watching), userId]
+    );
+
+    if (rows.affectedRows > 0) {
+      res.status(200).json({ success: true, watching: watching });
+    } else {
+      res.status(400).json({ error: "Update failed" });
+    }
+  } catch (error) {
+    console.error("Watching update error:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+//修改个人信息
+export const updateUser = async (req, res) => {
+  try {
+    const {
+      id,
+      nickname,
+      password,
+      avatar_url,
+      content,
+      birthday,
+      show_notes,
+    } = req.body;
+    const [result] = await pool.query(
+      "UPDATE users SET  nickname =?, password=? ,avatar_url =?, content =? ,birthday= ?,show_notes= ? WHERE id =?",
+      [
+        nickname,
+        password,
+        avatar_url,
+        content,
+        birthday,
+        JSON.stringify(show_notes),
+        id,
+      ]
+    );
+    res.status(200).json( result );
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

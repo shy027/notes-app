@@ -53,3 +53,7 @@ export const updateNotePrivacy = async (noteId) => {
 export const getRandNotes = async () => {
   return axiosInstance.get('/notes/rand');
 };
+
+export const getAllNotesByCategory = async ( categoryId) => {
+  return axiosInstance.get(`/notes/categories/${categoryId}`);
+};

@@ -1,0 +1,42 @@
+.createNoteContainer {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #cfe9fa;
+}
+
+.createNoteTitle {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.formContainer {
+  background: rgb(255, 255, 255);
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tagSection {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+.tagInput {
+  margin-bottom: 1rem;
+}
+
+.tagList {
+  min-height: 2rem;
+}
+
+.submitButton {
+  margin-top: 2rem;
+  width: 100%;
+  height: 45px;
+}

@@ -25,7 +25,7 @@ const SearchNotes = () => {
             const userResponse = await getUser(note.user_id);
             return {
               ...note,
-              author: userResponse.data.username,
+              author: userResponse.data?.nickname || userResponse.data?.username || 'Unknown',
               createTime: dayjs(note.created_at).format('YYYY-MM-DD')
             };
           })

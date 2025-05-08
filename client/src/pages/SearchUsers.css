@@ -2,7 +2,7 @@
  * @Author: shy 1533103845@qq.com
  * @Date: 2025-05-06 20:11:19
  * @LastEditors: shy 1533103845@qq.com
- * @LastEditTime: 2025-05-06 20:46:52
+ * @LastEditTime: 2025-05-07 16:45:36
  * @FilePath: \notes-app\client\src\pages\SearchUsers.css
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -70,17 +70,25 @@
 }
 
 .follow-button {
-  padding: 8px 20px;
-  border: none;
+  padding: 6px 16px;
   border-radius: 20px;
-  background-color: #1890ff;
-  color: white;
+  border: none;
   cursor: pointer;
   transition: all 0.3s;
+  background-color: #1890ff;
+  color: white;
 }
 
 .follow-button:hover {
   background-color: #40a9ff;
+}
+
+.follow-button.followed {
+  background-color: #d9d9d9;
+}
+
+.follow-button.followed:hover {
+  background-color: #bfbfbf;
   transform: scale(1.05);
 }
 

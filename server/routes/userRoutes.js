@@ -12,6 +12,8 @@ import {
   loginUser,
   getUser,
   searchUser,
+  Watching,
+  updateUser
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -20,5 +22,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get("/:id", getUser);
 router.get("/search/:name", searchUser);
+router.put("/watching/:userId", Watching);
+router.post("/updateUser", updateUser)
 
 export default router;

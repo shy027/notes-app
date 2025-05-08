@@ -2,7 +2,7 @@
  * @Author: shy 1533103845@qq.com
  * @Date: 2025-03-24 16:10:35
  * @LastEditors: shy 1533103845@qq.com
- * @LastEditTime: 2025-05-04 22:16:01
+ * @LastEditTime: 2025-05-07 16:05:15
  * @FilePath: \notes-app\server\controllers\noteController.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -158,6 +158,21 @@ export const getRandNotes = async (req, res) => {
     res.status(200).json(rows);
   } catch (error) {
     console.error("处理随机笔记失败:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+//根据分类获取所有相关笔记
+export const getAllNotesByCategory = async (req, res) => {
+  try {
+    const { categoryId } = req.params;
+    const [rows] = await pool.query(
+      "SELECT * FROM notes WHERE category_id = ? AND isPrivate = 0",
+      [categoryId]
+    );
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error("获取分类笔记失败:", error);
     res.status(500).json({ error: error.message });
   }
 };

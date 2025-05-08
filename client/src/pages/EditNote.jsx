@@ -5,6 +5,7 @@ import { getCategories } from '@/api/categoryApi'; // 引入获取分类信息�
 import { useStore } from '@/store/userStore'; // 引入全局状态管理
 import { useNavigate, useParams } from 'react-router-dom'; // 引入 React Router 的导航和路由参数钩子
 import Navbar from '@/components/Navbar'; // 引入导航栏组件
+import styles from './EditNote/EditNote.module.css';
 
 const EditNote = () => {
   const navigate = useNavigate(); // 获取导航函数
@@ -93,20 +94,24 @@ const EditNote = () => {
     return (
       <>
         <Navbar />
-        <div className="p-4">
-          <h1>编辑笔记</h1>
+        <div className={styles.editNoteContainer}>
+          <h1 className={styles.editNoteTitle}>编辑笔记</h1>
           <Form
             form={form}
             onFinish={handleSubmit}
             layout="vertical"
-            className="max-w-2xl mx-auto"
+            className={styles.formContainer}
           >
             <Form.Item
               label="标题"
-              name="title" // 表单字段名称
-              rules={[{ required: true, message: '请输入笔记标题' }]} // 验证规则：标题必填
+              name="title"
+              rules={[{ required: true, message: '请输入笔记标题' }]}
             >
-              <Input placeholder="请输入笔记标题" />
+              <Input 
+                placeholder="请输入笔记标题" 
+                size="large"
+                style={{ fontSize: '1.1rem' }}
+              />
             </Form.Item>
 
             <Form.Item
@@ -114,15 +119,22 @@ const EditNote = () => {
               name="content"
               rules={[{ required: true, message: '请输入笔记内容' }]}
             >
-              <Input.TextArea rows={6} placeholder="请输入笔记内容" />
+              <Input.TextArea 
+                rows={10} 
+                placeholder="请输入笔记内容"
+                style={{ fontSize: '1.1rem' }}
+              />
             </Form.Item>
 
             <Form.Item
-              label="类型" // 表单字段名称
-              name="categoryId" // 表单字段名称
-              rules={[{ required: true, message: '请选择笔记类型' }]} // 验证规则：分类必选
+              label="类型"
+              name="categoryId"
+              rules={[{ required: true, message: '请选择笔记类型' }]}
             >
-              <Select placeholder="请选择笔记类型">
+              <Select 
+                placeholder="请选择笔记类型"
+                size="large"
+              >
                 {categories.map((category) => (
                   <Select.Option key={category.id} value={category.id}>
                     {category.name}
@@ -131,41 +143,63 @@ const EditNote = () => {
               </Select>
             </Form.Item>
 
-            {/* 标签输入和显示区域 */}
-            <div className="mb-4">
+            <div className={styles.tagSection}>
               <label className="block mb-2">标签</label>
-              <div className="flex gap-2 mb-2">
-                <Input
-                  value={inputTag} // 绑定输入框值
-                  onChange={handleInputChange} // 输入框内容变化时调用 handleInputChange 函数
-                  placeholder="输入标签名" // 输入框占位符
-                  onPressEnter={handleAddTag} // 按下回车键时调用 handleAddTag 函数
-                />
-                <Button onClick={handleAddTag}>添加标签</Button>
+              <div className={styles.tagInput}>
+                <Input.Group compact>
+                  <Input
+                    value={inputTag}
+                    onChange={handleInputChange}
+                    placeholder="输入标签"
+                    style={{ width: 'calc(100% - 100px)' }}
+                    size="large"
+                    onPressEnter={handleAddTag}
+                  />
+                  <Button 
+                    onClick={handleAddTag}
+                    size="large"
+                    type="primary"
+                  >
+                    添加标签
+                  </Button>
+                </Input.Group>
               </div>
-              <div className="flex gap-2 flex-wrap">
+              <div className={styles.tagList}>
                 {tags.map((tag) => (
-                  <Tag key={tag} closable onClose={() => handleRemoveTag(tag)}>
+                  <Tag
+                    key={tag}
+                    closable
+                    onClose={() => handleRemoveTag(tag)}
+                    style={{ 
+                      fontSize: '1rem',
+                      padding: '0.3rem 0.8rem',
+                      margin: '0.3rem'
+                    }}
+                  >
                     {tag}
                   </Tag>
                 ))}
               </div>
             </div>
 
-            {/* 添加权限设置 */}
             <Form.Item
               label="笔记权限"
               name="isPrivate"
               initialValue={0}
             >
-              <Select>
+              <Select size="large">
                 <Select.Option value={0}>公开</Select.Option>
                 <Select.Option value={1}>私有</Select.Option>
               </Select>
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit">
+              <Button 
+                type="primary" 
+                htmlType="submit"
+                className={styles.submitButton}
+                size="large"
+              >
                 更新笔记
               </Button>
             </Form.Item>

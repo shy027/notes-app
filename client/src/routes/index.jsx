@@ -2,7 +2,7 @@
  * @Author: shy 1533103845@qq.com
  * @Date: 2025-03-24 19:17:26
  * @LastEditors: shy 1533103845@qq.com
- * @LastEditTime: 2025-05-06 20:33:35
+ * @LastEditTime: 2025-05-08 20:08:03
  * @FilePath: \notes-app\client\src\routes\index.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -21,6 +21,7 @@ import Seek from '../pages/Seek';
 import SearchNotes from '../pages/SearchNotes';
 import Personal from '../pages/Personal';
 import SearchUsers from '../pages/SearchUsers';
+import Setting from '../pages/Setting';
 
 const AppRoutes = () => {
   return (
@@ -38,6 +39,7 @@ const AppRoutes = () => {
       <Route path="/notes/search/:name" element={<SearchNotes />} />
       <Route path="/personal" element={<Personal />} />
       <Route path="/users/search/:name" element={<SearchUsers />} />
+      <Route path="/setting" element={<Setting />} />
     </Routes>
   );
 };

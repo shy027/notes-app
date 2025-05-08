@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
-import { searchUser } from '@/api/userApi';
+import { useStore } from '@/store/userStore';  // 添加这行
+import { searchUser, Watching } from '@/api/userApi';  // 添加 Watching API
 import { useLocation, useParams,useNavigate } from 'react-router-dom';
 import './SearchUsers.css';
 import defaultAvatar from '@/assets/User.png';
+import { message } from 'antd';  // 添加在文件顶部的导入部分
 
 const SearchUsers = () => {
   const { name } = useParams();
   const navigate = useNavigate();
+  const { user } = useStore();  // 移到顶部
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,6 +24,7 @@ const SearchUsers = () => {
         if (response && response.data) {
           const userData = Array.isArray(response.data) ? response.data : [];
           setUsers(userData);
+          
         }
       } catch (error) {
         console.error('搜索用户失败:', error);
@@ -36,6 +40,49 @@ const SearchUsers = () => {
   // 可以添加一个单独的 useEffect 来监听 users 的变化
   useEffect(() => {
   }, [users]);
+
+  const handleFollowClick = async (targetUserId) => {
+    try {
+      // 解析当前的 watching 数组，确保是数字数组
+      let currentWatching = user.watching || [];
+      
+      if (user.watching) {
+        currentWatching = typeof user.watching === 'string' 
+          ? JSON.parse(user.watching) 
+          : user.watching;
+      }
+      
+      let newWatchingList;
+      const isFollowing = currentWatching.includes(targetUserId);
+      if (isFollowing) {
+        newWatchingList = currentWatching.filter(id => id !== targetUserId);
+      } else {
+        newWatchingList = [...currentWatching, targetUserId];
+      }
+      
+      // 修改API调用参数格
+      
+      const response = await Watching(user.id, newWatchingList);
+      
+      if (response.status === 200) {
+        // 更新全局状态
+        // 显示操作成功提示
+        message.success(isFollowing ? '取消关注成功' : '关注成功');
+        
+        user.watching = newWatchingList;
+        // 更新本地存储
+        localStorage.setItem('user', JSON.stringify({
+          ...user,
+          watching: newWatchingList
+        }));
+        // 更新UI
+        setUsers([...users]);
+      }
+    } catch (error) {
+      console.error('关注操作失败:', error);
+      message.error('操作失败，请稍后重试');
+    }
+  };
 
   return (
     <>
@@ -56,25 +103,30 @@ const SearchUsers = () => {
               <div className="users-grid">
                 {users
                   .slice((currentPage - 1) * limit, currentPage * limit)
-                  .map((user) => (
+                  .map((searchedUser) => (
                     <div 
-                      key={user.id} 
+                      key={searchedUser.id} 
                       className="user-card"
-                      onClick={() => navigate('/personal', { state: user })}
+                      onClick={() => navigate('/personal', { state: searchedUser })}
                       style={{ cursor: 'pointer' }}
                     >
                       <img
-                        src={user.avatar_url || defaultAvatar}
+                        src={searchedUser.avatar_url || defaultAvatar}
                         alt="用户头像"
                         className="user-avatar"
                       />
-                      <h3 className="user-name">{user.nickname || user.username}</h3>
-                      <button 
-                        className="follow-button"
-                        onClick={(e) => e.stopPropagation()}  // 防止按钮点击触发卡片跳转
-                      >
-                        关注
-                      </button>
+                      <h3 className="user-name">{searchedUser.nickname || searchedUser.username}</h3>
+                      {searchedUser.id !== user.id && (
+                        <button 
+                          className={`follow-button ${user.watching?.includes(searchedUser.id) ? 'followed' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleFollowClick(searchedUser.id);
+                          }}
+                        >
+                          {user.watching?.includes(searchedUser.id) ? '已关注' : '关注'}
+                        </button>
+                      )}
                     </div>
                   ))}
               </div>

@@ -1,6 +1,10 @@
 {
   "dependencies": {
+    "@tinymce/tinymce-react": "^6.1.0",
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-react": "^1.0.6",
     "dayjs": "^1.11.13",
+    "quill": "^2.0.3",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1"
   }

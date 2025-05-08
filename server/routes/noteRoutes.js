@@ -18,6 +18,7 @@ import {
   searchNotes,
   updateNotePrivacy,
   getRandNotes,
+  getAllNotesByCategory
 } from "../controllers/noteController.js";
 
 const router = express.Router();
@@ -28,6 +29,7 @@ router.post("/", createNote);
 router.get("/user/:userId", getNotes);
 router.get("/:id", getNote);
 router.get("/categories/:userId/:categoryId", getNotesByCategory);
+router.get("/categories/:categoryId", getAllNotesByCategory);
 router.put("/:id", updateNote);
 router.delete("/:id", deleteNote);
 router.get("/search/:name", searchNotes);
