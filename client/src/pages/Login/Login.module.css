@@ -1,0 +1,79 @@
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #00b4db, #0083b0);
+}
+
+.loginCard {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.loginCard:hover {
+  transform: translateY(-5px);
+}
+
+.loginTitle {
+  color: #0083b0;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputField {
+  border-radius: 8px !important;
+  height: 45px !important;
+  border: 1px solid #e8e8e8 !important;
+  transition: all 0.3s ease !important;
+}
+
+.inputField:hover, .inputField:focus {
+  border-color: #0083b0 !important;
+  box-shadow: 0 0 0 2px rgba(0, 131, 176, 0.1) !important;
+}
+
+.loginButton {
+  height: 45px !important;
+  border-radius: 8px !important;
+  font-size: 16px !important;
+  background: linear-gradient(135deg, #00b4db, #0083b0) !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.loginButton:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 131, 176, 0.3);
+}
+
+.registerLink {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #666;
+}
+
+.registerLink a {
+  color: #0083b0;
+  margin-left: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.registerLink a:hover {
+  color: #00b4db;
+}

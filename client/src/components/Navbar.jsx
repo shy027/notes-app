@@ -146,18 +146,58 @@ const Navbar = () => {
         />
         <div>
           {user ? (
-            <Space onClick={handleLogout}>
-              {user.avatar_url ? (
-                <Avatar src={user.avatar_url} />
-              ) : (
-                <Avatar icon={<UserOutlined />} />
-              )}
-              <Text className="ml-2 text-white">
-                {user.nickname || user.username}
-              </Text>
+            <Space>
+              <Space 
+                onClick={() => navigate('/personal', { state: user })}
+                style={{ 
+                  cursor: 'pointer',
+                  padding: '4px 8px',
+                  borderRadius: '4px',
+                  transition: 'all 0.3s',
+                  '&:hover': {
+                    background: 'rgba(255, 255, 255, 0.1)'
+                  }
+                }}
+              >
+                {user.avatar_url ? (
+                  <Avatar src={user.avatar_url} />
+                ) : (
+                  <Avatar icon={<UserOutlined />} />
+                )}
+                <Text className="ml-2 text-white">
+                  {user.nickname || user.username}
+                </Text>
+              </Space>
+              <Button 
+                type="primary"
+                danger
+                ghost
+                onClick={handleLogout}
+                style={{ 
+                  marginLeft: '16px',
+                  borderRadius: '20px',
+                  padding: '4px 16px',
+                  height: '32px',
+                  transition: 'all 0.3s',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 2px 8px rgba(255, 77, 79, 0.2)'
+                  }
+                }}
+              >
+                退出
+              </Button>
             </Space>
           ) : (
-            <Button type="primary" onClick={() => navigate('/login')}>
+            <Button 
+              type="primary" 
+              onClick={() => navigate('/login')}
+              style={{
+                borderRadius: '20px',
+                padding: '4px 20px',
+                height: '32px'
+              }}
+            >
               登录
             </Button>
           )}

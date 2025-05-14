@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, DatePicker, Checkbox, message, Modal, Pagination, Card } from 'antd';
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import { Form, Input, Button, DatePicker, Checkbox, message, Modal, Pagination, Card, Upload } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone, UploadOutlined } from '@ant-design/icons';
+import defaultAvatar from '@/assets/User.png';  // Add default avatar import
 import { useStore } from '@/store/userStore';
 import { updateUser } from '@/api/userApi';
 import { getNotes } from '@/api/noteApi';
@@ -11,15 +12,48 @@ import { getUser } from '@/api/userApi';  // 添加这行导入
 import { useNavigate } from 'react-router-dom';
 
 const Setting = () => {
-  const navigate = useNavigate();  // 添加这行
+  const navigate = useNavigate();
   const { user, setUser } = useStore();
   const [form] = Form.useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [notes, setNotes] = useState([]);
-  const [selectedNotes, setSelectedNotes] = useState([]);  // 先设置为空数组
+  const [selectedNotes, setSelectedNotes] = useState([]);
   const [total, setTotal] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [uploading, setUploading] = useState(false);  // Add this line
   const pageSize = 5;
+
+  const handleUpload = async (file) => {
+    try {
+      setUploading(true);
+      const formData = new FormData();
+      formData.append('avatar', file);
+      
+      const response = await fetch('http://localhost:3000/api/upload/avatar', {
+        method: 'POST',
+        body: formData,
+        credentials: 'include',
+      });
+      
+      const data = await response.json();
+      console.log('上传响应:', data);  // 添加日志
+      
+      if (data.code === 200 && data.url) {
+        // 更新本地状态和localStorage
+        const updatedUser = { ...user, avatar: data.url };
+        setUser(updatedUser);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        message.success('头像上传成功');
+      } else {
+        throw new Error(data.msg || '上传失败');
+      }
+    } catch (error) {
+      console.error('上传错误:', error);
+      message.error('头像上传失败');
+    } finally {
+      setUploading(false);
+    }
+  };
 
   // 获取笔记列表
   useEffect(() => {
@@ -140,7 +174,29 @@ const Setting = () => {
           >
             <div className={styles.formSection}>
               <Form.Item label="头像">
-                {/* 头像上传功能预留 */}
+                <Upload
+                  name="avatar"
+                  showUploadList={false}
+                  beforeUpload={(file) => {
+                    if (file.size > 2 * 1024 * 1024) {
+                      message.error('图片大小不能超过2MB');
+                      return false;
+                    }
+                    handleUpload(file);
+                    return false;
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <img
+                      src={user?.avatar_url || user?.avatar || defaultAvatar}
+                      alt="头像"
+                      style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '20px' }}
+                    />
+                    <Button icon={<UploadOutlined />} loading={uploading}>
+                      更换头像
+                    </Button>
+                  </div>
+                </Upload>
               </Form.Item>
 
               <Form.Item

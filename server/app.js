@@ -2,19 +2,13 @@
  * @Author: shy 1533103845@qq.com
  * @Date: 2025-03-24 15:56:46
  * @LastEditors: shy 1533103845@qq.com
- * @LastEditTime: 2025-04-30 22:55:39
+ * @LastEditTime: 2025-05-08 22:52:21
  * @FilePath: \notes-app\server\app.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-/*
- * @Author: shy 1533103845@qq.com
- * @Date: 2025-03-24 15:56:46
- * @LastEditors: shy 1533103845@qq.com
- * @LastEditTime: 2025-04-01 17:44:58
- * @FilePath: \notes-app\server\app.js
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
+// Change require to import
 import express from "express";
+import uploadRouter from "./routes/upload.js"; // This should work now
 import dotenv from "dotenv";
 import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
@@ -47,5 +41,12 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/notes", noteRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/upload", uploadRouter);
+
+// Add static file serving for uploads
+app.use("/uploads", express.static("uploads"));
+
+// Remove this duplicate line
+// app.use("/api/upload", uploadRouter);
 
 export default app;

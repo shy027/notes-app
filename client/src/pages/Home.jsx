@@ -2,11 +2,16 @@ import { Layout, Typography } from 'antd';
 import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import './Home.css';
+import { useStore } from '@/store/userStore';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const { Content } = Layout;
 const { Title } = Typography;
 
 const Home = () => {
+  const { user, logout } = useStore();
+  const navigate = useNavigate();
+  const location = useLocation();
   // 添加动画观察器
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -90,7 +95,7 @@ const Home = () => {
             <div className="max-w-6xl mx-auto px-6 -my-12">
               <div className="image-section fade-in-section">
                 <img
-                  src="https://class-practice.oss-cn-nanjing.aliyuncs.com/notesApp/1ff15.jpg"
+                  src="https://class-practice.oss-cn-nanjing.aliyuncs.com/notesApp/3.png"
                   alt="笔记创作"
                 />
                 <div className="content">
@@ -98,7 +103,7 @@ const Home = () => {
                   <p>
                     在这里，每一个想法都值得被记录。我们提供简洁而强大的编辑器，让你专注于内容创作，将灵感转化为永恒。
                   </p>
-                  <a href="#" className="inline-flex items-center mt-6 px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">
+                  <a onClick={ () => navigate('/notes', { state: user })}className="inline-flex items-center mt-6 px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">
                     前往体验
                     <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -109,7 +114,7 @@ const Home = () => {
 
               <div className="image-section right fade-in-section">
                 <img
-                  src="https://class-practice.oss-cn-nanjing.aliyuncs.com/notesApp/2ff15.jpg"
+                  src="https://class-practice.oss-cn-nanjing.aliyuncs.com/notesApp/2.png"
                   alt="知识管理"
                 />
                 <div className="content">
@@ -117,7 +122,7 @@ const Home = () => {
                   <p>
                     通过标签和分类系统，轻松组织你的笔记。无论是学习笔记、工作计划还是生活感悟，都能完美归类。
                   </p>
-                  <a href="#" className="inline-flex items-center mt-6 px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">
+                  <a onClick={ () => navigate('/categories')} className="inline-flex items-center mt-6 px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">
                     前往体验
                     <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -128,7 +133,7 @@ const Home = () => {
 
               <div className="image-section fade-in-section">
                 <img
-                  src="https://class-practice.oss-cn-nanjing.aliyuncs.com/notesApp/p.jpg"
+                  src="https://class-practice.oss-cn-nanjing.aliyuncs.com/notesApp/4.png"
                   alt="分享交流"
                 />
                 <div className="content">
@@ -136,7 +141,7 @@ const Home = () => {
                   <p>
                     知识的价值在于传播。在这里，你可以与志同道合的人分享见解，激发更多创意的火花。
                   </p>
-                  <a href="/seek" className="inline-flex items-center mt-6 px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">
+                  <a onClick={ () => navigate('/seek')} className="inline-flex items-center mt-6 px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">
                     前往体验
                     <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
