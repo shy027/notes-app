@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import { getRandNotes } from '@/api/noteApi';
 import {getUser} from '@/api/userApi';
+import { getRandUsers } from '@/api/userApi';  // 添加这行导入
 import Navbar from '@/components/Navbar';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -16,11 +17,13 @@ const Seek = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [authors, setAuthors] = useState({});
   const [isCarouselReady, setIsCarouselReady] = useState(false);  // 添加轮播图状态
+  const [users, setUsers] = useState([]);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
 
   const carouselImages = [
     'https://class-practice.oss-cn-nanjing.aliyuncs.com/notesApp/1ff15.jpg',
     'https://class-practice.oss-cn-nanjing.aliyuncs.com/notesApp/2ff15.jpg',
-    'https://class-practice.oss-cn-nanjing.aliyuncs.com/notesApp/p.jpg'
+    'https://class-practice.oss-cn-nanjing.aliyuncs.com/notesApp/s1.png'
   ];
 
   const sliderSettings = {
@@ -64,6 +67,19 @@ const Seek = () => {
     setIsLoading(false);
   };
 
+  const fetchRandomUsers = async () => {
+    setIsLoadingUsers(true);
+    try {
+      const response = await getRandUsers();
+      console.log(response.data);
+      
+      setUsers(response.data);
+    } catch (error) {
+      console.error('获取随机用户失败:', error);
+    }
+    setIsLoadingUsers(false);
+  };
+
   useEffect(() => {
     // 预加载轮播图
     Promise.all(
@@ -80,6 +96,10 @@ const Seek = () => {
 
     // 获取笔记数据
     fetchRandomNotes();
+  }, []);
+
+  useEffect(() => {
+    fetchRandomUsers();
   }, []);
 
   return (
@@ -151,6 +171,47 @@ const Seek = () => {
               className="refresh-button bottom"
               onClick={fetchRandomNotes}
               disabled={isLoading}
+            >
+              换一换
+            </button>
+          </div>
+        </div>
+
+        {/* 添加用户展示区域 */}
+        <div className="seek-users-container">
+          <div className="seek-content">
+            <h2 className="seek-title">推荐关注</h2>
+            <div className="seek-users">
+              {users.slice(0, 9).map((user, index) => (
+                <div 
+                  key={user.id} 
+                  className="seek-user-card"
+                  style={{ 
+                    animationDelay: `${index * 0.1}s`,
+                    '--card-index': index
+                  }}
+                  onClick={() => navigate(`/personal`, { state: user })}
+                >
+                  <div className="seek-user-avatar">
+                    {user.avatar_url ? (
+                      <img src={user.avatar_url} alt={user.username} />
+                    ) : (
+                      <div className="default-avatar">{user.username[0]}</div>
+                    )}
+                  </div>
+                  <h3>{user.nickname || user.username}</h3>
+                  <p>{user.content || '这个用户很懒，什么都没写~'}</p>
+                  {/* <div className="seek-user-meta">
+                    <span>笔记: {user.notes_count || 0}</span>
+                    <span>关注: {user.following_count || 0}</span>
+                  </div> */}
+                </div>
+              ))}
+            </div>
+            <button 
+              className="refresh-button"
+              onClick={fetchRandomUsers}
+              disabled={isLoadingUsers}
             >
               换一换
             </button>

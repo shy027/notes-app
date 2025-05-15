@@ -2,7 +2,7 @@
  * @Author: shy 1533103845@qq.com
  * @Date: 2025-03-24 16:07:16
  * @LastEditors: shy 1533103845@qq.com
- * @LastEditTime: 2025-05-08 21:03:18
+ * @LastEditTime: 2025-05-14 20:48:56
  * @FilePath: \notes-app\server\controllers\userController.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -77,10 +77,7 @@ export const searchUser = async (req, res) => {
 export const Watching = async (req, res) => {
   try {
     const { userId } = req.params;
-    const watching = req.body; // watching 直接就是数组
-
-    console.log("Received watching data:", watching); // 调试用
-
+    const watching = req.body;
     const [rows] = await pool.query(
       "UPDATE users SET watching = ? WHERE id = ?",
       [JSON.stringify(watching), userId]
@@ -121,8 +118,21 @@ export const updateUser = async (req, res) => {
         id,
       ]
     );
-    res.status(200).json( result );
+    res.status(200).json(result);
   } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+//随机获取用户
+export const getRandUsers = async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      "SELECT * FROM users ORDER BY RAND() LIMIT 9"
+    );
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error("处理随机用户失败:", error);
     res.status(500).json({ error: error.message });
   }
 };

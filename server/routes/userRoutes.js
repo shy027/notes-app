@@ -13,13 +13,15 @@ import {
   getUser,
   searchUser,
   Watching,
-  updateUser
+  updateUser,
+  getRandUsers
 } from "../controllers/userController.js";
 
 const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+router.get("/rand-users", getRandUsers)
 router.get("/:id", getUser);
 router.get("/search/:name", searchUser);
 router.put("/watching/:userId", Watching);

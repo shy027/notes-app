@@ -33,3 +33,7 @@ export const Watching = async (userId, watching) => {
 export const updateUser = async (userData) => {
   return axiosInstance.post(`/users/updateUser`, userData);
 };
+
+export const getRandUsers = async () => {
+  return axiosInstance.get('/users/rand-users');
+};
