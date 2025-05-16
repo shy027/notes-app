@@ -192,9 +192,9 @@ const Setting = () => {
                       alt="头像"
                       style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '20px' }}
                     />
-                    <Button icon={<UploadOutlined />} loading={uploading}>
+                    {/* <Button icon={<UploadOutlined />} loading={uploading}>
                       更换头像
-                    </Button>
+                    </Button> */}
                   </div>
                 </Upload>
               </Form.Item>
